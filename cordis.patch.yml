@@ -1,0 +1,16 @@
+# 本 bundle 的 patch 层：把「设置 → 通用设置」扩展插件插入 profile。
+#
+# 这一行同时承担两个作用：
+#   1. Host 半（lib/index.js）被 Loader 加载，注册 configEditor / llm 服务并推送阈值；
+#   2. 行 id 就是该插件的设置命名空间——客户端半用
+#      `ctx.configForms.get('dsh-settings-extras')` 读写配置，故 id 必须与
+#      lib/client.js 的 CONFIG_NS 完全一致，改名会让已有用户配置变成孤儿。
+#   3. dsh-client-modules 扫描 package.json 的 dsh.client 声明，据此把
+#      lib/client.js 作为浏览器半侧送出（不会自动送，必须靠这一行占位）。
+#
+# config 不在此声明：两个字段都由 lib/index.js 的 Config schema 给出默认值
+# （thresholdRatio 0.5 / effort high），用户改动落在 profile 自己的 patch 层上，
+# 这样升级本 bundle 不会覆盖用户已调好的值。
+- insert:
+    - id: dsh-settings-extras
+      name: dsh-settings-extras
