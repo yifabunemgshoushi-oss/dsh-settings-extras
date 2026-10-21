@@ -1,6 +1,6 @@
 {
   "name": "dsh-settings-extras",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "description": "在 dsh「设置 → 通用设置」中增加自动压缩阈值与默认思考等级两项",
